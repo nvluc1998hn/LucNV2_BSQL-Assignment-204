@@ -21,6 +21,7 @@ CREATE TABLE ActedIn(
    id_actor int not null FOREIGN KEY REFERENCES Actor(id_actor),
    id_movie int not null FOREIGN KEY REFERENCES Movie(id_movie)
 )
+--query 3--
 ALTER TABLE Movie 
 ADD ImageLink  varchar(50) not null unique
  
@@ -58,28 +59,16 @@ ADD ImageLink  varchar(50) not null unique
  drop table Movie
  select name,average_salary from Actor 
  order by(average_salary)
-  --Join--
+ --query4-- 
  select Movie.name,Actor.name
  from Movie
  Inner join ActedIn on ActedIn.id_movie=Movie.id_movie
  inner join Actor on ActedIn.id_actor=Actor.id_actor
- 
- --query4-- 
- select COUNT(id_movie) 
- from ActedIn
- group by id_movie
-
- select *from movie
- select *from ActedIn
-
- select Movie.name,count(ActedIn.id_movie) as total 
+ --query 5--
+ select Movie.name, COUNT(ActedIn.id_movie) as solanxuathien
  from ActedIn
  Inner join Movie on ActedIn.id_movie=Movie.id_movie and Movie.genre=1
  inner join Actor on ActedIn.id_actor=Actor.id_actor
  group by ActedIn.id_movie,Movie.name
-
- select Movie.name
- from ActedIn
- Inner join Movie on ActedIn.id_movie=Movie.id_movie and Movie.genre=1
- inner join Actor on ActedIn.id_actor=Actor.id_actor
+ having count(*) >= 2
  
